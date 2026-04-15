@@ -6,7 +6,7 @@ from datetime import date
 # Configuración de la interfaz
 st.set_page_config(page_title="Registro EMECU Táchira", page_icon="📝")
 
-st.title("📝 Censo de Integrantes EMECU")
+st.title("📝 Censo de Integrantes de la EMECU Táchira")
 st.markdown("### Escuela Magnética Espiritual de la Comuna Universal")
 st.info("Por favor, introduzca sus datos con precisión para el registro oficial.")
 
