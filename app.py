@@ -29,20 +29,20 @@ with st.form(key="form_censo"):
     with col1:
         p_nombre = st.text_input("Primer Nombre*")
         p_apellido = st.text_input("Primer Apellido*")
-        fecha_nac = st.date_input("Fecha de Nacimiento", min_value=date(1920, 1, 1), format="DD/MM/YYYY")
-        celular = st.text_input("Celular")
-        ciudad = st.selectbox("Ciudad", ciudades)
-        municipio = st.selectbox("Municipio", municipios)
+        fecha_nac = st.date_input("Fecha de Nacimiento*", min_value=date(1920, 1, 1), format="DD/MM/YYYY")
+        celular = st.text_input("Celular*")
+        ciudad = st.selectbox("Ciudad*", ciudades)
+        municipio = st.selectbox("Municipio*", municipios)
     with col2:
         s_nombre = st.text_input("Segundo Nombre")
         s_apellido = st.text_input("Segundo Apellido")
         cedula = st.text_input("Cédula de Identidad*")
-        direccion = st.text_input("Dirección de Casa")
-        parroquia = st.selectbox("Parroquia", parroquias)
-        catedra = st.selectbox("Cátedra", catedras)
+        direccion = st.text_input("Dirección de Casa*")
+        parroquia = st.selectbox("Parroquia*", parroquias)
+        catedra = st.selectbox("Cátedra*", catedras)
 
-    profesiones = st.text_area("Profesiones Estudiadas")
-    oficios = st.text_area("Oficios Conocidos")
+    profesiones = st.text_area("Profesiones Estudiadas*")
+    oficios = st.text_area("Trabajos y Oficios Conocidos*")
     
     submit_button = st.form_submit_button(label="Registrar Información")
 
@@ -52,22 +52,22 @@ with st.form(key="form_censo"):
         else:
             fecha_formateada = fecha_nac.strftime("%d/%m/%Y")
             
-            # 1. Crear el nuevo registro
+            # Asegúrate de que estos nombres sean IDÉNTICOS a tu Fila 1 en la hoja
             nuevo_registro = {
                 "Primer_Nombre": p_nombre,
                 "Segundo_Nombre": s_nombre,
                 "Primer_Apellido": p_apellido,
                 "Segundo_Apellido": s_apellido,
                 "Fecha_Nacimiento": fecha_formateada,
-                "Cedula_Identidad": cedula,
-                "Dirección_Casa": direccion,
+                "Cédula_Identidad": cedula,    # <--- Agregada tilde conforme a tu hoja 
+                "Dirección_Casa": direccion,   # <--- Agregada tilde conforme a tu hoja 
                 "Celular": celular,
                 "Profesiones_Estudiadas": profesiones,
                 "Oficios_Conocidos": oficios,
                 "Ciudad": ciudad,
                 "Parroquia": parroquia,
                 "Municipio": municipio,
-                "Cátedra": catedra
+                "Cátedra": catedra             # <--- Agregada tilde conforme a tu hoja 
             }
 
             try:
