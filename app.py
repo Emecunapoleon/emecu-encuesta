@@ -69,8 +69,8 @@ with st.form(key="form_censo"):
                 "Primer_Apellido": p_apellido,
                 "Segundo_Apellido": s_apellido,
                 "Fecha_Nacimiento": fecha_formateada,
-                "Cedula_Identidad": cedula,
-                "Dirección_Casa": direccion,
+                "Cédula_Identidad": cedula, # <-- Corregido con tilde para coincidir con tu hoja
+                "Dirección_Casa": direccion, # <-- Asegúrate que en tu Excel tenga tilde también
                 "Celular": celular,
                 "Profesiones_Estudiadas": profesiones,
                 "Oficios_Conocidos": oficios,
