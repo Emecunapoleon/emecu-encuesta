@@ -6,12 +6,17 @@ from datetime import date
 # Configuración de la interfaz
 st.set_page_config(page_title="Registro EMECU Táchira", page_icon="📝")
 
-# --- CABECERA CON LOGOTIPO ---
-# Insertamos el logo centrado y con un ancho controlado
-st.image("https://i.postimg.cc/NfBWMzGC/Gran14-Napoleon-blanco.png", width=200)
+# --- CABECERA CENTRADA ---
+# Usamos columnas para centrar el logo
+col_logo_1, col_logo_2, col_logo_3 = st.columns([1, 1, 1])
+with col_logo_2:
+    st.image("https://i.postimg.cc/NfBWMzGC/Gran14-Napoleon-blanco.png", use_container_width=True)
 
-st.title("📝 Censo de Integrantes EMECU")
-st.markdown("### Escuela Magnética Espiritual de la Comuna Universal")
+# Usamos HTML para centrar los textos
+st.markdown("<h1 style='text-align: center;'>📝 Censo de Integrantes EMECU</h1>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center;'>Escuela Magnética Espiritual de la Comuna Universal</h3>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; font-weight: bold;'>abril 2026</p>", unsafe_allow_html=True)
+
 st.info("Por favor, introduzca sus datos con precisión para el registro oficial.")
 
 # Definición de opciones
@@ -34,7 +39,6 @@ with st.form(key="form_censo"):
     with col1:
         p_nombre = st.text_input("Primer Nombre*")
         p_apellido = st.text_input("Primer Apellido*")
-        # Visualización de fecha en formato DD/MM/AAAA en el widget
         fecha_nac = st.date_input("Fecha de Nacimiento*", min_value=date(1920, 1, 1), format="DD/MM/YYYY")
         celular = st.text_input("Celular (Ej: 0414-1234567)*")
         ciudad = st.selectbox("Ciudad*", ciudades)
@@ -57,7 +61,6 @@ with st.form(key="form_censo"):
         if not p_nombre or not p_apellido or not cedula:
             st.error("Por favor, rellene los campos obligatorios (*)")
         else:
-            # Formateamos la fecha a DD/MM/AAAA para guardarla en la base de datos
             fecha_formateada = fecha_nac.strftime("%d/%m/%Y")
             
             nuevo_integrante = pd.DataFrame([{
@@ -66,7 +69,7 @@ with st.form(key="form_censo"):
                 "Primer_Apellido": p_apellido,
                 "Segundo_Apellido": s_apellido,
                 "Fecha_Nacimiento": fecha_formateada,
-                "Cédula_Identidad": cedula,
+                "Cedula_Identidad": cedula,
                 "Dirección_Casa": direccion,
                 "Celular": celular,
                 "Profesiones_Estudiadas": profesiones,
