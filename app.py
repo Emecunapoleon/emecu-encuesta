@@ -39,7 +39,7 @@ with st.form(key="form_censo"):
         catedra = st.selectbox("Cátedra*", ["Beatriz Portinari", "Luz y Verdad", "Napoleón Bonaparte", "Provincial Luz Occidente"])
 
     profesiones = st.text_area("Profesiones Estudiadas*")
-    oficios = st.text_area("Trabajos y Oficios Conocidos*")
+    oficios = st.text_area("Trabajos y Oficios Realizados*")
     
     submit_button = st.form_submit_button(label="Registrar Información")
 
@@ -72,7 +72,7 @@ with st.form(key="form_censo"):
                 "Direccion_Casa": direccion,
                 "Celular": celular,
                 "Profesiones_Estudiadas": profesiones,
-                "Oficios_Conocidos": oficios,
+                "Oficios_REalizados": oficios,
                 "Ciudad": ciudad,
                 "Parroquia": parroquia,
                 "Municipio": municipio,
