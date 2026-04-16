@@ -78,7 +78,6 @@ with st.form(key="form_censo"):
                 "Municipio": municipio,
                 "Catedra": catedra
             }
-
             try:
                 with st.spinner("Guardando información..."):
                     response = requests.post(URL_SCRIPT, json=payload)
