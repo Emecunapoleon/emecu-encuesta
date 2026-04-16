@@ -6,6 +6,10 @@ from datetime import date
 # Configuración de la interfaz
 st.set_page_config(page_title="Registro EMECU Táchira", page_icon="📝")
 
+# --- CABECERA CON LOGOTIPO ---
+# Insertamos el logo centrado y con un ancho controlado
+st.image("https://i.postimg.cc/NfBWMzGC/Gran14-Napoleon-blanco.png", width=200)
+
 st.title("📝 Censo de Integrantes EMECU")
 st.markdown("### Escuela Magnética Espiritual de la Comuna Universal")
 st.info("Por favor, introduzca sus datos con precisión para el registro oficial.")
@@ -21,6 +25,7 @@ catedras = [
     "Provincial Luz Occidente"
 ]
 
+# Conexión con Google Sheets
 conn = st.connection("gsheets", type=GSheetsConnection)
 
 with st.form(key="form_censo"):
@@ -29,7 +34,7 @@ with st.form(key="form_censo"):
     with col1:
         p_nombre = st.text_input("Primer Nombre*")
         p_apellido = st.text_input("Primer Apellido*")
-        # El widget sigue mostrando el calendario, pero capturamos el valor
+        # Visualización de fecha en formato DD/MM/AAAA en el widget
         fecha_nac = st.date_input("Fecha de Nacimiento", min_value=date(1920, 1, 1), format="DD/MM/YYYY")
         celular = st.text_input("Celular (Ej: 0414-1234567)")
         ciudad = st.selectbox("Ciudad", ciudades)
@@ -52,7 +57,7 @@ with st.form(key="form_censo"):
         if not p_nombre or not p_apellido or not cedula:
             st.error("Por favor, rellene los campos obligatorios (*)")
         else:
-            # CAMBIO CLAVE: Formateamos la fecha a DD/MM/AAAA antes de crear el DataFrame
+            # Formateamos la fecha a DD/MM/AAAA para guardarla en la base de datos
             fecha_formateada = fecha_nac.strftime("%d/%m/%Y")
             
             nuevo_integrante = pd.DataFrame([{
@@ -60,8 +65,8 @@ with st.form(key="form_censo"):
                 "Segundo_Nombre": s_nombre,
                 "Primer_Apellido": p_apellido,
                 "Segundo_Apellido": s_apellido,
-                "Fecha_Nacimiento": fecha_formateada, # <--- Ahora es texto en formato DD/MM/AAAA
-                "Cedula_Identidad": cedula,
+                "Fecha_Nacimiento": fecha_formateada,
+                "Cédula_Identidad": cedula,
                 "Dirección_Casa": direccion,
                 "Celular": celular,
                 "Profesiones_Estudiadas": profesiones,
