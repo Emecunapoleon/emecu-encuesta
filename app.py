@@ -61,7 +61,7 @@ with st.form(key="form_censo"):
         if faltantes:
             st.error(f"Faltan los siguientes campos obligatorios: {', '.join(faltantes)}")
         else:
-            # Preparamos el paquete de datos
+            # Preparamos el paquete de datos con nombres simplificados
             payload = {
                 "Primer_Nombre": p_nombre,
                 "Segundo_Nombre": s_nombre,
@@ -71,8 +71,8 @@ with st.form(key="form_censo"):
                 "Cedula_Identidad": cedula,
                 "Direccion_Casa": direccion,
                 "Celular": celular,
-                "Profesiones_Estudiadas": profesiones,
-                "Oficios_REalizados": oficios,
+                "Profesiones": profesiones, # Nombre corregido
+                "Oficios": oficios,           # Nombre corregido
                 "Ciudad": ciudad,
                 "Parroquia": parroquia,
                 "Municipio": municipio,
