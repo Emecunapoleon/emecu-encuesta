@@ -35,21 +35,21 @@ with st.form(key="form_censo"):
         p_nombre = st.text_input("Primer Nombre*")
         p_apellido = st.text_input("Primer Apellido*")
         # Visualización de fecha en formato DD/MM/AAAA en el widget
-        fecha_nac = st.date_input("Fecha de Nacimiento", min_value=date(1920, 1, 1), format="DD/MM/YYYY")
-        celular = st.text_input("Celular (Ej: 0414-1234567)")
-        ciudad = st.selectbox("Ciudad", ciudades)
-        municipio = st.selectbox("Municipio", municipios)
+        fecha_nac = st.date_input("Fecha de Nacimiento*", min_value=date(1920, 1, 1), format="DD/MM/YYYY")
+        celular = st.text_input("Celular (Ej: 0414-1234567)*")
+        ciudad = st.selectbox("Ciudad*", ciudades)
+        municipio = st.selectbox("Municipio*", municipios)
 
     with col2:
         s_nombre = st.text_input("Segundo Nombre")
         s_apellido = st.text_input("Segundo Apellido")
         cedula = st.text_input("Cédula de Identidad*")
-        direccion = st.text_input("Dirección de Casa")
-        parroquia = st.selectbox("Parroquia", parroquias)
-        catedra = st.selectbox("Cátedra", catedras)
+        direccion = st.text_input("Dirección de Casa*")
+        parroquia = st.selectbox("Parroquia*", parroquias)
+        catedra = st.selectbox("Cátedra*", catedras)
 
-    profesiones = st.text_area("Profesiones Estudiadas")
-    oficios = st.text_area("Oficios Conocidos")
+    profesiones = st.text_area("Profesiones Estudiadas*")
+    oficios = st.text_area("Oficios Conocidos*")
     
     submit_button = st.form_submit_button(label="Registrar Información")
 
