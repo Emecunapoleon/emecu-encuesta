@@ -2,21 +2,49 @@ import streamlit as st
 import requests
 from datetime import date
 
-# 1. Configuración de la interfaz
-st.set_page_config(page_title="Censo Comuna de Amor y Ley - EMECU", page_icon="📝")
+# 1. Configuración de la interfaz y Tema
+st.set_page_config(
+    page_title="Censo Comuna de Amor y Ley - EMECU", 
+    page_icon="📝",
+    layout="centered"
+)
 
 # URL de tu Google Apps Script (El puente)
 URL_SCRIPT = "https://script.google.com/macros/s/AKfycbzfy9A8zYClMi_pHmwOzza06GvyzoeAIWS7nAeGMwBu4xvtI9xWqwiu6KWFHo80wMjLtg/exec"
 
+# --- ESTILOS PARA CORREGIR VISIBILIDAD ---
+st.markdown("""
+    <style>
+    /* Forzar fondo oscuro para que el logo blanco siempre se vea */
+    .main {
+        background-color: #0e1117;
+        color: #ffffff;
+    }
+    /* Estilo para los títulos con colores claros */
+    .titulo-guia {
+        color: #E0E1DD !important;
+        text-align: center;
+        font-weight: bold;
+    }
+    .sub-emecu {
+        color: #ffffff;
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+    </style>
+    """, unsafe_allow_html=True)
+
 # --- CABECERA ---
-# Reducción del tamaño del logo mediante columnas
-col_a, col_b, col_c = st.columns([1.5, 1, 1.5])
+col_a, col_b, col_c = st.columns([1, 1, 1])
 with col_b:
+    # El logo blanco ahora resaltará sobre el fondo oscuro forzado
     st.image("https://i.postimg.cc/NfBWMzGC/Gran14-Napoleon-blanco.png", use_container_width=True)
 
-# Texto Introductorio
-st.markdown("<h2 style='text-align: center; color: #2E5077;'>GUÍA DE INTRODUCCIÓN AL CENSO DE LA COMUNA</h2>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: center; font-style: italic;'>\"Hacia la cristalización de la Comuna de Amor y Ley\"</h4>", unsafe_allow_html=True)
+st.markdown("<p class='sub-emecu'>Escuela Magnético Espiritual de la Comuna Universal (EMECU)</p>", unsafe_allow_html=True)
+
+st.markdown("<h2 class='titulo-guia'>GUÍA DE INTRODUCCIÓN AL CENSO DE LA COMUNA</h2>", unsafe_allow_html=True)
+st.markdown("<h4 style='text-align: center; font-style: italic; color: #A9D6E5;'>\"Hacia la cristalización de la Comuna de Amor y Ley\"</h4>", unsafe_allow_html=True)
 
 with st.expander("Leer Introducción y Principios del Censo", expanded=True):
     st.markdown("""
@@ -68,23 +96,25 @@ with st.form(key="form_censo_comuna"):
     st.markdown("### II. MAPA DE APTITUDES (El Saber Hacer)")
     st.info("Marca tus áreas de dominio y especifica tu experiencia.")
     
-    c1, c2 = st.columns(2)
-    with c1:
-        sa_check = st.checkbox("Sostén Alimentario (Siembra, cría, riego)")
-        sa_especificar = st.text_input("Especificar Sostén Alimentario")
-        
-        io_check = st.checkbox("Infraestructura y Oficios (Construcción, Mecánica, Textil)")
-        io_especificar = st.text_input("Especificar Infraestructura")
-        
-        sb_check = st.checkbox("Salud y Bienestar (Medicina, Botánica, Fluidoterapia)")
-        sb_especificar = st.text_input("Especificar Salud")
-
-    with c2:
-        ct_check = st.checkbox("Ciencia y Tecnología (IA, Energía, Comunicaciones)")
-        ct_especificar = st.text_input("Especificar Ciencia/Tecnología")
-        
-        ea_check = st.checkbox("Educación y Arte (Doctrina, Música, Pedagogía)")
-        ea_especificar = st.text_input("Especificar Educación/Arte")
+    # Áreas de dominio en filas diferentes para mejor visibilidad móvil
+    sa_check = st.checkbox("Sostén Alimentario (Siembra, cría, riego)")
+    sa_especificar = st.text_input("Especificar Sostén Alimentario")
+    st.markdown("---")
+    
+    io_check = st.checkbox("Infraestructura y Oficios (Construcción, Mecánica, Textil)")
+    io_especificar = st.text_input("Especificar Infraestructura/Oficios")
+    st.markdown("---")
+    
+    sb_check = st.checkbox("Salud y Bienestar (Medicina, Botánica, Fluidoterapia)")
+    sb_especificar = st.text_input("Especificar Salud/Bienestar")
+    st.markdown("---")
+    
+    ct_check = st.checkbox("Ciencia y Tecnología (IA, Energía, Comunicaciones)")
+    ct_especificar = st.text_input("Especificar Ciencia/Tecnología")
+    st.markdown("---")
+    
+    ea_check = st.checkbox("Educación y Arte (Doctrina, Música, Pedagogía)")
+    ea_especificar = st.text_input("Especificar Educación/Arte")
 
     st.markdown("### III. INVENTARIO DE MEDIOS DE PRODUCCIÓN")
     herramientas = st.text_input("Herramientas Manuales/Eléctricas")
@@ -100,7 +130,6 @@ with st.form(key="form_censo_comuna"):
     submit_button = st.form_submit_button(label="REGISTRAR EN LA COMUNA")
 
     if submit_button:
-        # Validación básica
         campos_obli = {
             "Primer Nombre": p_nombre, "Primer Apellido": p_apellido, "Cédula": cedula,
             "Celular": celular, "Dirección": direccion, "Profesiones": profesiones, "Ocupación": ocupacion
