@@ -15,38 +15,37 @@ URL_SCRIPT = "https://script.google.com/macros/s/AKfycbzfy9A8zYClMi_pHmwOzza06Gv
 # --- DISEÑO INTELIGENTE: ADAPTABLE A MÓVIL Y PC ---
 st.markdown("""
     <style>
-    /* 1. EL LOGO: Se invierte automáticamente según el tema */
+    /* 1. EL LOGO: Se invierte automáticamente si el dispositivo está en modo claro */
     @media (prefers-color-scheme: light) {
         .logo-img { filter: invert(1) brightness(0.2); }
     }
     
-    /* 2. TEXTOS: Usamos colores que contrasten en ambos mundos */
+    /* 2. TEXTOS: Colores equilibrados para fondo blanco y negro */
     .sub-emecu {
         text-align: center;
         font-size: 1.6rem !important;
         font-weight: bold;
         margin-top: 10px;
         margin-bottom: 15px;
-        /* Este color es un 'Azul Petróleo' que se ve bien en blanco y gris oscuro */
-        color: #3182ce; 
+        color: #3182ce; /* Azul legible en ambos modos */
     }
     
     .titulo-guia {
         text-align: center;
         font-weight: 800;
         font-size: 1.8rem;
-        color: #4A5568; /* Gris profundo legible en ambos */
+        color: #5d6d7e; /* Gris balanceado */
     }
     
     .subtitulo-guia {
         text-align: center;
         font-style: italic;
         font-weight: 600;
-        color: #718096;
+        color: #85929e;
         margin-bottom: 25px;
     }
 
-    /* Forzar que el nombre EMECU sea grande en móvil */
+    /* Ajuste de tamaño para móviles */
     @media only screen and (max-width: 600px) {
         .sub-emecu { font-size: 1.3rem !important; }
     }
@@ -56,7 +55,7 @@ st.markdown("""
 # --- CABECERA ---
 col_a, col_b, col_c = st.columns([1, 1.2, 1])
 with col_b:
-    # Aplicamos la clase 'logo-img' para que el CSS la controle
+    # Imagen con clase CSS para el filtro inteligente
     st.markdown(f'<div style="text-align: center;"><img src="https://i.postimg.cc/NfBWMzGC/Gran14-Napoleon-blanco.png" class="logo-img" style="width: 100%;"></div>', unsafe_allow_html=True)
 
 st.markdown("<p class='sub-emecu'>Escuela Magnético Espiritual de la Comuna Universal (EMECU)</p>", unsafe_allow_html=True)
@@ -68,14 +67,9 @@ with st.expander("Leer Introducción y Principios del Censo", expanded=True):
     st.markdown("""
     **Estimado hermano, adherente y colaborador:**
     
-    Nos encontramos en un momento histórico definido por el Maestro Joaquín Trincado como la transición hacia la Comuna de Amor y Ley. Como miembros de la Escuela Magnético-Espiritual de la Comuna Universal en el Estado Táchira, nuestra misión no es solo estudiar la doctrina en los libros, sino preparar el terreno material para su ejecución.
+    Nos encontramos en un momento histórico definido por el Maestro Joaquín Trincado como la transición hacia la Comuna de Amor y Ley.
     
     El Maestro nos advirtió en el **Código de Amor Universal** que la Comuna es un régimen de justicia donde "todos producen para todos". Por ello, este censo no busca clasificar títulos ni posesiones con fines egoístas, sino organizar los Medios y las Aptitudes que el espíritu pone al servicio de la gran familia humana.
-    
-    **¿Por qué es necesaria esta Ficha Técnica?**
-    1. **Reconocimiento de nuestra utilidad:** Necesitamos saber qué sabemos hacer y qué estamos dispuestos a aprender.
-    2. **Soberanía ante la crisis:** Ante un posible escenario de cambio global hacia el 2030, la organización previa es la única garantía de paz.
-    3. **Abolición del egoísmo:** Al declarar lo que tenemos, practicamos el despojo de la propiedad individual para abrazar la propiedad común de la sabiduría.
     
     **"El que no sabe, aprenda; el que sabe, enseñe; y el que no trabaja, no coma (siendo sano)." — Joaquín Trincado**
     """)
@@ -130,12 +124,12 @@ with st.form(key="form_censo_comuna"):
     ct_especificar = st.text_input("Especificar Ciencia/Tecnología")
     st.markdown("---")
     
-    ea_check = st.checkbox("Educación y Arte (Enseñanza de la doctrina, Música, Pedagogía)")
+    ea_check = st.checkbox("Educación y Arte (Doctrina, Música, Pedagogía)")
     ea_especificar = st.text_input("Especificar Educación/Arte")
 
     st.markdown("### III. INVENTARIO DE MEDIOS DE PRODUCCIÓN")
     herramientas = st.text_input("Herramientas Manuales/Eléctricas")
-    tierra = st.text_input("Tierras/Espacios de Cultivo (Indicar Ha o m2)")
+    tierra = st.text_input("Tierras/Espacios de Cultivo")
     maquinaria = st.text_input("Maquinaria/Vehículos")
     tecnologia_medios = st.text_input("Tecnología (Paneles, Radio, Computación)")
 
@@ -147,7 +141,7 @@ with st.form(key="form_censo_comuna"):
     submit_button = st.form_submit_button(label="REGISTRAR EN LA COMUNA")
 
     if submit_button:
-        # Los campos obligatorios se mantienen según lo acordado
+        # Validación de campos obligatorios
         campos_obli = {
             "Primer Nombre": p_nombre, "Primer Apellido": p_apellido, "Cédula": cedula,
             "Celular": celular, "Dirección": direccion, "Profesiones": profesiones, "Ocupación": ocupacion
@@ -157,6 +151,7 @@ with st.form(key="form_censo_comuna"):
         if faltantes:
             st.error(f"Faltan campos obligatorios: {', '.join(faltantes)}")
         else:
+            # CORRECCIÓN DE VARIABLE: movilidad (antes decía mobility)
             payload = {
                 "Primer_Nombre": p_nombre, "Segundo_Nombre": s_nombre, "Primer_Apellido": p_apellido, "Segundo_Apellido": s_apellido,
                 "Fecha_Nacimiento": fecha_nac.strftime("%d/%m/%Y"), "Cedula_Identidad": cedula, "Direccion_Casa": direccion,
@@ -167,7 +162,7 @@ with st.form(key="form_censo_comuna"):
                 "Especificar_SB": sb_especificar, "Ciencia_Tecnologia": "X" if ct_check else "", "Especificar_CT": ct_especificar,
                 "Educacion_Arte": "X" if ea_check else "", "Especificar_EA": ea_especificar, "Herramientas": herramientas,
                 "Tierra": tierra, "Maquinaria": maquinaria, "Tecnologia": tecnologia_medios, "Aprender_Oficio": aprender,
-                "Movilidad_Crisis": mobility, "Horas_Estudio": horas_estudio
+                "Movilidad_Crisis": movilidad, "Horas_Estudio": horas_estudio
             }
 
             try:
