@@ -2,49 +2,66 @@ import streamlit as st
 import requests
 from datetime import date
 
-# 1. Configuración de la interfaz y Tema
+# 1. Configuración de la interfaz
 st.set_page_config(
     page_title="Censo Comuna de Amor y Ley - EMECU", 
     page_icon="📝",
     layout="centered"
 )
 
-# URL de tu Google Apps Script (El puente)
+# URL de tu Google Apps Script
 URL_SCRIPT = "https://script.google.com/macros/s/AKfycbzfy9A8zYClMi_pHmwOzza06GvyzoeAIWS7nAeGMwBu4xvtI9xWqwiu6KWFHo80wMjLtg/exec"
 
-# --- ESTILOS PARA CORREGIR VISIBILIDAD ---
+# --- ESTILOS PARA MÁXIMA LEGIBILIDAD EN MÓVIL (FONDO CLARO) ---
 st.markdown("""
     <style>
-    /* Forzar fondo oscuro para que el logo blanco siempre se vea */
-    .main {
-        background-color: #0e1117;
-        color: #ffffff;
-    }
-    /* Estilo para los títulos con colores claros */
-    .titulo-guia {
-        color: #E0E1DD !important;
-        text-align: center;
-        font-weight: bold;
-    }
+    /* Nombre de la Escuela: Negro, centrado y más grande */
     .sub-emecu {
-        color: #ffffff;
+        color: #1a1a1a !important;
         text-align: center;
-        font-size: 1.2rem;
+        font-size: 1.5rem !important; /* Aumentado */
+        font-weight: bold;
+        margin-top: 10px;
         margin-bottom: 20px;
+        line-height: 1.2;
+    }
+    /* Título Guía: Azul marino fuerte para contraste total */
+    .titulo-guia {
+        color: #003049 !important;
+        text-align: center;
+        font-weight: 800;
+        font-size: 1.8rem;
+        margin-top: 10px;
+    }
+    /* Subtítulo: Azul grisáceo oscuro */
+    .subtitulo-guia {
+        color: #334155 !important;
+        text-align: center;
+        font-style: italic;
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+    /* Ajuste para que los textos de los formularios se vean bien en fondo claro */
+    label, p, span {
+        color: #1f2937 !important;
     }
     </style>
     """, unsafe_allow_html=True)
 
 # --- CABECERA ---
-col_a, col_b, col_c = st.columns([1, 1, 1])
+col_a, col_b, col_c = st.columns([1, 1.2, 1])
 with col_b:
-    # El logo blanco ahora resaltará sobre el fondo oscuro forzado
+    # Usaremos el logo con un filtro oscuro para que se vea en fondo blanco si el logo original es muy claro
+    # Si tienes una versión del logo en color oscuro, sería ideal cambiar la URL aquí.
+    # Por ahora, aplicamos un filtro CSS de brillo para que se distinga
+    st.markdown('<div style="filter: brightness(0.2); text-align: center;">', unsafe_allow_html=True)
     st.image("https://i.postimg.cc/NfBWMzGC/Gran14-Napoleon-blanco.png", use_container_width=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
 st.markdown("<p class='sub-emecu'>Escuela Magnético Espiritual de la Comuna Universal (EMECU)</p>", unsafe_allow_html=True)
 
 st.markdown("<h2 class='titulo-guia'>GUÍA DE INTRODUCCIÓN AL CENSO DE LA COMUNA</h2>", unsafe_allow_html=True)
-st.markdown("<h4 style='text-align: center; font-style: italic; color: #A9D6E5;'>\"Hacia la cristalización de la Comuna de Amor y Ley\"</h4>", unsafe_allow_html=True)
+st.markdown("<p class='subtitulo-guia'>\"Hacia la cristalización de la Comuna de Amor y Ley\"</p>", unsafe_allow_html=True)
 
 with st.expander("Leer Introducción y Principios del Censo", expanded=True):
     st.markdown("""
@@ -52,7 +69,7 @@ with st.expander("Leer Introducción y Principios del Censo", expanded=True):
     
     Nos encontramos en un momento histórico definido por el Maestro Joaquín Trincado como la transición hacia la Comuna de Amor y Ley. Como miembros de la Escuela Magnético-Espiritual de la Comuna Universal en el Estado Táchira, nuestra misión no es solo estudiar la doctrina en los libros, sino preparar el terreno material para su ejecución.
     
-    El Maestro nos advirtió en el Código de Amor Universal que la Comuna es un régimen de justicia donde "todos producen para todos". Por ello, este censo no busca clasificar títulos ni posesiones con fines egoístas, sino organizar los Medios y las Aptitudes que el espíritu pone al servicio de la gran familia humana.
+    El Maestro nos advirtió en el **Código de Amor Universal** que la Comuna es un régimen de justicia donde "todos producen para todos". Por ello, este censo no busca clasificar títulos ni posesiones con fines egoístas, sino organizar los Medios y las Aptitudes que el espíritu pone al servicio de la gran familia humana.
     
     **¿Por qué es necesaria esta Ficha Técnica?**
     1. **Reconocimiento de nuestra utilidad:** Necesitamos saber qué sabemos hacer y qué estamos dispuestos a aprender.
@@ -96,7 +113,6 @@ with st.form(key="form_censo_comuna"):
     st.markdown("### II. MAPA DE APTITUDES (El Saber Hacer)")
     st.info("Marca tus áreas de dominio y especifica tu experiencia.")
     
-    # Áreas de dominio en filas diferentes para mejor visibilidad móvil
     sa_check = st.checkbox("Sostén Alimentario (Siembra, cría, riego)")
     sa_especificar = st.text_input("Especificar Sostén Alimentario")
     st.markdown("---")
@@ -113,7 +129,7 @@ with st.form(key="form_censo_comuna"):
     ct_especificar = st.text_input("Especificar Ciencia/Tecnología")
     st.markdown("---")
     
-    ea_check = st.checkbox("Educación y Arte (Doctrina, Música, Pedagogía)")
+    ea_check = st.checkbox("Educación y Arte (Enseñanza de la doctrina, Música, Pedagogía)")
     ea_especificar = st.text_input("Especificar Educación/Arte")
 
     st.markdown("### III. INVENTARIO DE MEDIOS DE PRODUCCIÓN")
@@ -130,6 +146,7 @@ with st.form(key="form_censo_comuna"):
     submit_button = st.form_submit_button(label="REGISTRAR EN LA COMUNA")
 
     if submit_button:
+        # Validación de campos obligatorios
         campos_obli = {
             "Primer Nombre": p_nombre, "Primer Apellido": p_apellido, "Cédula": cedula,
             "Celular": celular, "Dirección": direccion, "Profesiones": profesiones, "Ocupación": ocupacion
@@ -140,39 +157,16 @@ with st.form(key="form_censo_comuna"):
             st.error(f"Faltan campos obligatorios: {', '.join(faltantes)}")
         else:
             payload = {
-                "Primer_Nombre": p_nombre,
-                "Segundo_Nombre": s_nombre,
-                "Primer_Apellido": p_apellido,
-                "Segundo_Apellido": s_apellido,
-                "Fecha_Nacimiento": fecha_nac.strftime("%d/%m/%Y"),
-                "Cedula_Identidad": cedula,
-                "Direccion_Casa": direccion,
-                "Celular": celular,
-                "Profesiones": profesiones,
-                "Ocupacion_Actual": ocupacion,
-                "Ciudad": ciudad,
-                "Parroquia": parroquia,
-                "Municipio": municipio,
-                "Cátedra": catedra,
-                "Estado_Salud": estado_salud,
-                "Necesidades_Especiales": necesidades_esp,
-                "Sosten_Alimentario": "X" if sa_check else "",
-                "Especificar_SA": sa_especificar,
-                "Infraestructura_Oficios": "X" if io_check else "",
-                "Especificar_IO": io_especificar,
-                "Salud_Bienestar": "X" if sb_check else "",
-                "Especificar_SB": sb_especificar,
-                "Ciencia_Tecnologia": "X" if ct_check else "",
-                "Especificar_CT": ct_especificar,
-                "Educacion_Arte": "X" if ea_check else "",
-                "Especificar_EA": ea_especificar,
-                "Herramientas": herramientas,
-                "Tierra": tierra,
-                "Maquinaria": maquinaria,
-                "Tecnologia": tecnologia_medios,
-                "Aprender_Oficio": aprender,
-                "Movilidad_Crisis": movilidad,
-                "Horas_Estudio": horas_estudio
+                "Primer_Nombre": p_nombre, "Segundo_Nombre": s_nombre, "Primer_Apellido": p_apellido, "Segundo_Apellido": s_apellido,
+                "Fecha_Nacimiento": fecha_nac.strftime("%d/%m/%Y"), "Cedula_Identidad": cedula, "Direccion_Casa": direccion,
+                "Celular": celular, "Profesiones": profesiones, "Ocupacion_Actual": ocupacion, "Ciudad": ciudad,
+                "Parroquia": parroquia, "Municipio": municipio, "Cátedra": catedra, "Estado_Salud": estado_salud,
+                "Necesidades_Especiales": necesidades_esp, "Sosten_Alimentario": "X" if sa_check else "", "Especificar_SA": sa_especificar,
+                "Infraestructura_Oficios": "X" if io_check else "", "Especificar_IO": io_especificar, "Salud_Bienestar": "X" if sb_check else "",
+                "Especificar_SB": sb_especificar, "Ciencia_Tecnologia": "X" if ct_check else "", "Especificar_CT": ct_especificar,
+                "Educacion_Arte": "X" if ea_check else "", "Especificar_EA": ea_especificar, "Herramientas": herramientas,
+                "Tierra": tierra, "Maquinaria": maquinaria, "Tecnologia": tecnologia_medios, "Aprender_Oficio": aprender,
+                "Movilidad_Crisis": movilidad, "Horas_Estudio": horas_estudio
             }
 
             try:
