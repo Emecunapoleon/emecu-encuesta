@@ -136,7 +136,7 @@ with st.form(key="form_censo_comuna"):
     st.markdown("### IV. DISPONIBILIDAD Y FORMACIÓN")
     aprender = st.text_input("¿Qué oficio te gustaría aprender de otros hermanos?")
     movilidad = st.radio("En un escenario de crisis, ¿estás dispuesto a la movilidad geográfica?", ["SI", "NO"])
-    horas_estudio = st.number_input("¿Cuántas horas semanales dedicas hoy al estudio del Código de Amor Universal?", min_value=0)
+    horas_estudio = st.number_input("¿Cuántas horas semanales dedicas al estudio de la Doctrina Espiritismo Luz y Verdad?", min_value=0)
 
     submit_button = st.form_submit_button(label="REGISTRAR EN LA COMUNA")
 
