@@ -152,17 +152,41 @@ with st.form(key="form_censo_comuna"):
             st.error(f"Faltan campos obligatorios: {', '.join(faltantes)}")
         else:
             # CORRECCIÓN DE VARIABLE: movilidad (antes decía mobility)
+           # Cambiamos "Cátedra" por "Catedra" para que Google lo reconozca
             payload = {
-                "Primer_Nombre": p_nombre, "Segundo_Nombre": s_nombre, "Primer_Apellido": p_apellido, "Segundo_Apellido": s_apellido,
-                "Fecha_Nacimiento": fecha_nac.strftime("%d/%m/%Y"), "Cedula_Identidad": cedula, "Direccion_Casa": direccion,
-                "Celular": celular, "Profesiones": profesiones, "Ocupacion_Actual": ocupacion, "Ciudad": ciudad,
-                "Parroquia": parroquia, "Municipio": municipio, "Cátedra": catedra, "Estado_Salud": estado_salud,
-                "Necesidades_Especiales": necesidades_esp, "Sosten_Alimentario": "X" if sa_check else "", "Especificar_SA": sa_especificar,
-                "Infraestructura_Oficios": "X" if io_check else "", "Especificar_IO": io_especificar, "Salud_Bienestar": "X" if sb_check else "",
-                "Especificar_SB": sb_especificar, "Ciencia_Tecnologia": "X" if ct_check else "", "Especificar_CT": ct_especificar,
-                "Educacion_Arte": "X" if ea_check else "", "Especificar_EA": ea_especificar, "Herramientas": herramientas,
-                "Tierra": tierra, "Maquinaria": maquinaria, "Tecnologia": tecnologia_medios, "Aprender_Oficio": aprender,
-                "Movilidad_Crisis": movilidad, "Horas_Estudio": horas_estudio
+                "Primer_Nombre": p_nombre,
+                "Segundo_Nombre": s_nombre,
+                "Primer_Apellido": p_apellido,
+                "Segundo_Apellido": s_apellido,
+                "Fecha_Nacimiento": fecha_nac.strftime("%d/%m/%Y"),
+                "Cedula_Identidad": cedula,
+                "Direccion_Casa": direccion,
+                "Celular": celular,
+                "Profesiones": profesiones,
+                "Ocupacion_Actual": ocupacion,
+                "Ciudad": ciudad,
+                "Parroquia": parroquia,
+                "Municipio": municipio,
+                "Catedra": catedra,  # <--- AQUÍ: Sin tilde para que coincida con tu Script
+                "Estado_Salud": estado_salud,
+                "Necesidades_Especiales": necesidades_esp,
+                "Sosten_Alimentario": "X" if sa_check else "",
+                "Especificar_SA": sa_especificar,
+                "Infraestructura_Oficios": "X" if io_check else "",
+                "Especificar_IO": io_especificar,
+                "Salud_Bienestar": "X" if sb_check else "",
+                "Especificar_SB": sb_especificar,
+                "Ciencia_Tecnologia": "X" if ct_check else "",
+                "Especificar_CT": ct_especificar,
+                "Educacion_Arte": "X" if ea_check else "",
+                "Especificar_EA": ea_especificar,
+                "Herramientas": herramientas,
+                "Tierra": tierra,
+                "Maquinaria": maquinaria,
+                "Tecnologia": tecnologia_medios,
+                "Aprender_Oficio": aprender,
+                "Movilidad_Crisis": movilidad,
+                "Horas_Estudio": horas_estudio
             }
 
             try:
