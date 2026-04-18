@@ -12,38 +12,43 @@ st.set_page_config(
 # URL de tu Google Apps Script
 URL_SCRIPT = "https://script.google.com/macros/s/AKfycbzfy9A8zYClMi_pHmwOzza06GvyzoeAIWS7nAeGMwBu4xvtI9xWqwiu6KWFHo80wMjLtg/exec"
 
-# --- ESTILOS PARA MÁXIMA LEGIBILIDAD EN MÓVIL (FONDO CLARO) ---
+# --- DISEÑO INTELIGENTE: ADAPTABLE A MÓVIL Y PC ---
 st.markdown("""
     <style>
-    /* Nombre de la Escuela: Negro, centrado y más grande */
+    /* 1. EL LOGO: Se invierte automáticamente según el tema */
+    @media (prefers-color-scheme: light) {
+        .logo-img { filter: invert(1) brightness(0.2); }
+    }
+    
+    /* 2. TEXTOS: Usamos colores que contrasten en ambos mundos */
     .sub-emecu {
-        color: #1a1a1a !important;
         text-align: center;
-        font-size: 1.5rem !important; /* Aumentado */
+        font-size: 1.6rem !important;
         font-weight: bold;
         margin-top: 10px;
-        margin-bottom: 20px;
-        line-height: 1.2;
+        margin-bottom: 15px;
+        /* Este color es un 'Azul Petróleo' que se ve bien en blanco y gris oscuro */
+        color: #3182ce; 
     }
-    /* Título Guía: Azul marino fuerte para contraste total */
+    
     .titulo-guia {
-        color: #003049 !important;
         text-align: center;
         font-weight: 800;
         font-size: 1.8rem;
-        margin-top: 10px;
+        color: #4A5568; /* Gris profundo legible en ambos */
     }
-    /* Subtítulo: Azul grisáceo oscuro */
+    
     .subtitulo-guia {
-        color: #334155 !important;
         text-align: center;
         font-style: italic;
         font-weight: 600;
+        color: #718096;
         margin-bottom: 25px;
     }
-    /* Ajuste para que los textos de los formularios se vean bien en fondo claro */
-    label, p, span {
-        color: #1f2937 !important;
+
+    /* Forzar que el nombre EMECU sea grande en móvil */
+    @media only screen and (max-width: 600px) {
+        .sub-emecu { font-size: 1.3rem !important; }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -51,12 +56,8 @@ st.markdown("""
 # --- CABECERA ---
 col_a, col_b, col_c = st.columns([1, 1.2, 1])
 with col_b:
-    # Usaremos el logo con un filtro oscuro para que se vea en fondo blanco si el logo original es muy claro
-    # Si tienes una versión del logo en color oscuro, sería ideal cambiar la URL aquí.
-    # Por ahora, aplicamos un filtro CSS de brillo para que se distinga
-    st.markdown('<div style="filter: brightness(0.2); text-align: center;">', unsafe_allow_html=True)
-    st.image("https://i.postimg.cc/NfBWMzGC/Gran14-Napoleon-blanco.png", use_container_width=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    # Aplicamos la clase 'logo-img' para que el CSS la controle
+    st.markdown(f'<div style="text-align: center;"><img src="https://i.postimg.cc/NfBWMzGC/Gran14-Napoleon-blanco.png" class="logo-img" style="width: 100%;"></div>', unsafe_allow_html=True)
 
 st.markdown("<p class='sub-emecu'>Escuela Magnético Espiritual de la Comuna Universal (EMECU)</p>", unsafe_allow_html=True)
 
@@ -146,7 +147,7 @@ with st.form(key="form_censo_comuna"):
     submit_button = st.form_submit_button(label="REGISTRAR EN LA COMUNA")
 
     if submit_button:
-        # Validación de campos obligatorios
+        # Los campos obligatorios se mantienen según lo acordado
         campos_obli = {
             "Primer Nombre": p_nombre, "Primer Apellido": p_apellido, "Cédula": cedula,
             "Celular": celular, "Dirección": direccion, "Profesiones": profesiones, "Ocupación": ocupacion
@@ -166,7 +167,7 @@ with st.form(key="form_censo_comuna"):
                 "Especificar_SB": sb_especificar, "Ciencia_Tecnologia": "X" if ct_check else "", "Especificar_CT": ct_especificar,
                 "Educacion_Arte": "X" if ea_check else "", "Especificar_EA": ea_especificar, "Herramientas": herramientas,
                 "Tierra": tierra, "Maquinaria": maquinaria, "Tecnologia": tecnologia_medios, "Aprender_Oficio": aprender,
-                "Movilidad_Crisis": movilidad, "Horas_Estudio": horas_estudio
+                "Movilidad_Crisis": mobility, "Horas_Estudio": horas_estudio
             }
 
             try:
